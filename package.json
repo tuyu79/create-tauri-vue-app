@@ -1,0 +1,20 @@
+{
+  "name": "create-tauri-vue-app",
+  "version": "0.0.1",
+  "description": "Scaffold a new Tauri + Vue desktop application",
+  "type": "module",
+  "bin": {
+    "create-tauri-vue-app": "./index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "tauri",
+    "vue",
+    "scaffold",
+    "template"
+  ],
+  "author": "",
+  "license": "MIT"
+}
