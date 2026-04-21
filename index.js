@@ -62,7 +62,7 @@ Next steps:
 
 function copyRecursive(src, dest) {
   mkdirSync(dest, { recursive: true })
-  const entries = readdirSync(src, { withFileTypes: true })
+  const entries = readdirSync(src, { withFileTypes: true, dot: true })
 
   for (const entry of entries) {
     const srcPath = join(src, entry.name)
@@ -79,7 +79,7 @@ function copyRecursive(src, dest) {
 }
 
 function replaceInFiles(dir, placeholder, replacement) {
-  const entries = readdirSync(dir, { withFileTypes: true })
+  const entries = readdirSync(dir, { withFileTypes: true, dot: true })
 
   for (const entry of entries) {
     const path = join(dir, entry.name)
