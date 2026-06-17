@@ -1,18 +1,34 @@
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 use tauri_plugin_sql::{Migration, MigrationKind};
+use tauri_plugin_log::{Target, TargetKind};
 
 pub fn run() {
+
+    let app_dir = {
+        let home = dirs::home_dir().expect("failed to get home directory");
+        let dir = home.join(".my-app").join("app");
+        std::fs::create_dir_all(&dir).expect("failed to create app directory");
+        dir
+    };
+    let log_path = app_dir.join("app.log").to_string_lossy().to_string();
+    let db_path = format!("sqlite:{}", app_dir.join("app.db").to_string_lossy());
+
   tauri::Builder::default()
     .plugin(
       tauri_plugin_log::Builder::default()
-        .level(log::LevelFilter::Info)
-        .build(),
+         .level(log::LevelFilter::Info)
+           .targets([
+               Target::new(TargetKind::Stdout),
+               Target::new(TargetKind::LogDir { file_name: Some(log_path)}),
+               Target::new(TargetKind::Webview),
+           ])
+         .build(),
     )
     .plugin(tauri_plugin_shell::init())
     .plugin(
         tauri_plugin_sql::Builder::default()
             .add_migrations(
-                "sqlite:app.db",
+                &db_path,
                 vec![
                     Migration {
                         version: 1,

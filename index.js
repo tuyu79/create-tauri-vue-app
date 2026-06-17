@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { cpSync, mkdirSync, readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
+import { cpSync, mkdirSync, readdirSync, readFileSync, writeFileSync, existsSync, unlinkSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -48,6 +48,17 @@ mkdirSync(targetDir, { recursive: true })
 // Copy template files
 const templateDir = join(__dirname, 'template')
 copyRecursive(templateDir, targetDir)
+
+// 把 _gitignore 重命名为 .gitignore
+const tempGitIgnore = join(targetDir, '_gitignore')
+const realGitIgnore = join(targetDir, '.gitignore')
+if (existsSync(tempGitIgnore)) {
+  // 覆盖写入，防止已有.gitignore
+  const buf = readFileSync(tempGitIgnore)
+  writeFileSync(realGitIgnore, buf)
+  // 可选：删掉临时 _gitignore 文件
+  unlinkSync(tempGitIgnore)
+}
 
 // Replace placeholder with project name
 replaceInFiles(targetDir, '{{PROJECT_NAME}}', projectName)
