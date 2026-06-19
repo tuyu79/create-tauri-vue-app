@@ -7,7 +7,7 @@ export async function getDb() {
   if (!db) {
     const home = await path.homeDir();
     // 分层拼接，自动适配 / 和 \
-    const dbDir = await path.join(home, '.my-app');
+    const dbDir = await path.join(home, '.{{PROJECT_NAME}}');
     const dbFilePath = await path.join(dbDir, 'app.db');
     // sqlite 连接串格式：sqlite:完整本地路径
     const dbUrl = `sqlite:${dbFilePath}`;

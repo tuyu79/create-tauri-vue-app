@@ -6,7 +6,7 @@ pub fn run() {
 
     let app_dir = {
         let home = dirs::home_dir().expect("failed to get home directory");
-        let dir = home.join(".my-app").join("app");
+        let dir = home.join(".{{PROJECT_NAME}}").join("app");
         std::fs::create_dir_all(&dir).expect("failed to create app directory");
         dir
     };
