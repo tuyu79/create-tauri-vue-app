@@ -6,49 +6,10 @@
   "permissions": [
     "core:default",
     "log:default",
-    "shell:allow-open",
     "sql:default",
     "sql:allow-load",
     "sql:allow-execute",
     "sql:allow-select",
-    "sql:allow-close",
-    "shell:allow-execute",
-    "shell:allow-spawn",
-    "shell:allow-stdin-write",
-    {
-      "identifier": "shell:allow-execute",
-      "allow": [
-        {
-          "name": "xcode-select",
-          "cmd": "xcode-select",
-          "args": true
-        },
-        {
-          "name": "sh",
-          "cmd": "sh",
-          "args": true
-        },
-        {
-          "name": "node",
-          "cmd": "node",
-          "args": true
-        },
-        {
-          "name": "curl",
-          "cmd": "curl",
-          "args": true
-        },
-        {
-          "name": "open",
-          "cmd": "open",
-          "args": true
-        },
-        {
-          "name": "osascript",
-          "cmd": "osascript",
-          "args": true
-        }
-      ]
-    }
+    "sql:allow-close"
   ]
 }
